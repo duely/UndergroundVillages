@@ -1,0 +1,16 @@
+[
+{
+  "modid": "uv",
+  "name": "Underground Villages",
+  "description": "Villages underground.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Noobanidus"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
