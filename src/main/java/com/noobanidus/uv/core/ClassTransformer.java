@@ -12,8 +12,8 @@ public class ClassTransformer implements IClassTransformer {
     public List<IWarmTransformer> transformers = new ArrayList<>();
 
     public ClassTransformer() {
-        transformers.add(new GroundTransformer());
-        transformers.add(new PathTransformer());
+        //transformers.add(new GroundTransformer());
+        //transformers.add(new PathTransformer());
         transformers.add(new SpawnTransformer());
     }
 

@@ -15,6 +15,7 @@ public class UVCore implements IFMLLoadingPlugin {
     public static String addComponentParts;
     public static String canSpawnStructureAtCoords;
     public static String getBiomeSpecificBlockState;
+    public static String getNearestStructurePos;
 
 
     @Override
@@ -40,6 +41,7 @@ public class UVCore implements IFMLLoadingPlugin {
         addComponentParts = dev ? "addComponentParts" : "func_74875_a";
         canSpawnStructureAtCoords = dev ? "canSpawnStructureAtCoords" : "func_75047_a";
         getBiomeSpecificBlockState = dev ? "getBiomeSpecificBlockState" : "func_175847_a";
+        getNearestStructurePos = dev ? "getNearestStructurePos" : "func_191069_a";
     }
 
     @Override
@@ -59,5 +61,6 @@ public class UVCore implements IFMLLoadingPlugin {
     public static Predicate<MethodNode> addComponentPartsFinder = methodNode -> methodNode.name.equals(UVCore.addComponentParts);
     public static Predicate<MethodNode> canSpawnStructureAtCoordsFinder = methodNode -> methodNode.name.equals(UVCore.canSpawnStructureAtCoords);
     public static Predicate<MethodNode> getBiomeSpecificBlockStateFinder = methodNode -> methodNode.name.equals(UVCore.getBiomeSpecificBlockState);
+    public static Predicate<MethodNode> getNearestStructurePosFinder = methodNode -> methodNode.name.equals(UVCore.getNearestStructurePos);
 
 }

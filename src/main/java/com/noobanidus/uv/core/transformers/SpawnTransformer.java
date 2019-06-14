@@ -1,9 +1,9 @@
 package com.noobanidus.uv.core.transformers;
 
+import com.noobanidus.uv.UV;
 import com.noobanidus.uv.core.CustomClassWriter;
 import com.noobanidus.uv.core.IWarmTransformer;
 import com.noobanidus.uv.core.UVCore;
-import net.minecraft.world.gen.structure.MapGenVillage;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
@@ -37,12 +37,19 @@ public class SpawnTransformer implements IWarmTransformer {
             structure.instructions.add(new VarInsnNode(Opcodes.ILOAD, 2));
             structure.instructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/noobanidus/uv/core/hooks/SpawnHooks", "canSpawnStructureAtCoords", "(Lnet/minecraft/world/gen/structure/MapGenVillage;II)Z", false));
             structure.instructions.add(new InsnNode(Opcodes.IRETURN));
-
-            CustomClassWriter writer = new CustomClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
-            classNode.accept(writer);
-            return writer.toByteArray();
         }
-
-        return basicClass;
+        MethodNode pos = UVCore.findMethod(classNode, UVCore.getNearestStructurePosFinder);
+        if (pos != null) {
+            pos.instructions.clear();
+            pos.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+            pos.instructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
+            pos.instructions.add(new VarInsnNode(Opcodes.ALOAD, 2));
+            pos.instructions.add(new VarInsnNode(Opcodes.ILOAD, 3));
+            pos.instructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/noobanidus/uv/core/hooks/SpawnHooks", "getNearestStructurePos", "(Lnet/minecraft/world/gen/structure/MapGenVillage;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Z)Lnet/minecraft/util/math/BlockPos;", false));
+            pos.instructions.add(new InsnNode(Opcodes.ARETURN));
+        }
+        CustomClassWriter writer = new CustomClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
+        classNode.accept(writer);
+        return writer.toByteArray();
     }
 }
